@@ -1,4 +1,3 @@
-import time
 import os
 
 from selenium import webdriver
@@ -41,7 +40,7 @@ def get_soup_code_from_file(file):
     try:
         with open(file, "r", encoding="UTF-8") as file:
             file_content = file.read()
-        return BeautifulSoup(file_content, cst.PARSER)
+        return BeautifulSoup(file_content, "html.parser")
     except FileNotFoundError:
         logger.warning("get_soup_code_from_file : FileNotFoundError for %s" % str(file))
         pass
