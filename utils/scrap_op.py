@@ -3,20 +3,26 @@ import os
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common import exceptions
+from selenium.webdriver.firefox.options import Options
 
 from bs4 import BeautifulSoup
 from loguru import logger
 
 
-def init_driver():
+def init_driver(headless=True):
+    options = Options()
+    options.headless = headless
     firefox_profile_path = "5vsetjwm.driver"
     driver_profile = webdriver.FirefoxProfile(firefox_profile_path)
-    driver = webdriver.Firefox(driver_profile)
-    driver.wait = WebDriverWait(driver, 5)
+    executable = "C:\\Dev\\geckodriver.exe"
+
+    driver = webdriver.Firefox(options=options, firefox_profile=driver_profile, executable_path=executable)
+
     return driver
 
 
 def get_soup_from_url(driver, url):
+    print('wait 5 s')
     driver.wait = WebDriverWait(driver, 5)
     try:
         driver.get(url)
